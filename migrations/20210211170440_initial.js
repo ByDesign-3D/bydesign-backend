@@ -115,6 +115,15 @@ exports.up = async function(knex) {
   
 };
 
-exports.down = function(knex) {
-  
+exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("admin")
+  await knex.schema.dropTableIfExists("business_info")
+  await knex.schema.dropTableIfExists("customers")
+  await knex.schema.dropTableIfExists("categories")
+  await knex.schema.dropTableIfExists("sub_categories")
+  await knex.schema.dropTableIfExists("filament_types")
+  await knex.schema.dropTableIfExists("sizes")
+  await knex.schema.dropTableIfExists("colors")
+  await knex.schema.dropTableIfExists("products")
+
 };
