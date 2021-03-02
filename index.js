@@ -1,4 +1,3 @@
-const express = require("express")
 const helmet = require("helmet")
 const server = require('./server.js');
 const PORT = process.env.PORT || 5432
