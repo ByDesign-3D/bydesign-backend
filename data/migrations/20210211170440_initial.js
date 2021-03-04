@@ -52,14 +52,13 @@ exports.up = async function(knex) {
     await knex.schema.createTable("sizes", (table) => {
         table.increments()
         table.integer("size").notNullable()
-        table.string("units").notNullable()
     })
 
     await knex.schema.createTable("colors", (table) => {
         table.increments()
         table.integer("color").notNullable()
         table
-            .string("filament_type")
+            .integer("filament_type")
             .references("id")
             .inTable("filament_types")
             .onDelete("CASCADE")
@@ -99,12 +98,6 @@ exports.up = async function(knex) {
             .onDelete("CASCADE")
             .onUpdate("CASCADE")
 
-        table
-            .string("size_units")
-            .references("units")
-            .inTable("sizes")
-            .onDelete("CASCADE")
-            .onUpdate("CASCADE")
 
         table.string("image_url")
         table.string("video_url")
@@ -116,14 +109,14 @@ exports.up = async function(knex) {
 };
 
 exports.down = async function(knex) {
-  await knex.schema.dropTableIfExists("admin")
-  await knex.schema.dropTableIfExists("business_info")
-  await knex.schema.dropTableIfExists("customers")
-  await knex.schema.dropTableIfExists("categories")
-  await knex.schema.dropTableIfExists("sub_categories")
-  await knex.schema.dropTableIfExists("filament_types")
-  await knex.schema.dropTableIfExists("sizes")
-  await knex.schema.dropTableIfExists("colors")
   await knex.schema.dropTableIfExists("products")
+  await knex.schema.dropTableIfExists("colors")
+  await knex.schema.dropTableIfExists("sizes")
+  await knex.schema.dropTableIfExists("filament_types")
+  await knex.schema.dropTableIfExists("sub_categories")
+  await knex.schema.dropTableIfExists("categories")
+  await knex.schema.dropTableIfExists("customers")
+  await knex.schema.dropTableIfExists("business_info")
+  await knex.schema.dropTableIfExists("admin")
 
 };
