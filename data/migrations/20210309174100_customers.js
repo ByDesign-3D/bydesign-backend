@@ -1,8 +1,37 @@
+exports.up = async function(knex) {
+    await knex.schema.createTable("customers", (table) => {
+        table.uuid("id")
+            .primary()
+            .notNullable()
+            .unique()
+        table.text("first_name")
+            .notNullable()
+        table.text("last_name")
+            .notNullable()
+        table.text("email")
+            .notNullable()
+            .unique()
+        table.boolean("email_auth")
+            .notNullable()
+            .defaultTo(false)
+        table.text("username")
+            .notNullable()
+            .unique()
+        table.text("password")
+            .notNullable()
+        table.string("phone_number", 15)
+        table.text("shipping_address")
+            .notNullable()
+        table.text("billing_address")
+        table.timestamp("account_created")
+            .notNullable()
+            .defaultTo(knex.fn.now())
 
-exports.up = function(knex) {
+    })
   
 };
 
-exports.down = function(knex) {
-  
+exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("customers")
+
 };

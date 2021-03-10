@@ -1,3 +1,5 @@
 .env
 data/seeds/000_employees.js
+data/seeds/000_customers.js
+zzTemporaryFiles/zzTemporarySeeds.js
 node_modules
