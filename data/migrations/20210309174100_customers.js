@@ -19,7 +19,7 @@ exports.up = async function(knex) {
             .unique()
         table.text("password")
             .notNullable()
-        table.string("phone_number", 15)
+        table.string("phone_number")
         table.text("street_address")
             .notNullable()
         table.text("city")
