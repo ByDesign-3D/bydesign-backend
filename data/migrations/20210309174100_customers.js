@@ -29,7 +29,7 @@ exports.up = async function(knex) {
         table.text("zip_code")
             .notNullable()
         table.text("billing_address")
-        table.timestamp("account_created")
+        table.timestamp("account_created_timestamp")
             .notNullable()
             .defaultTo(knex.fn.now())
 
