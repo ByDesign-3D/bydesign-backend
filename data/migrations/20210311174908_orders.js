@@ -14,7 +14,7 @@ exports.up = async function(knex) {
         table.text("status")
             .notNullable()
             .defaultTo("received")
-        table.integer("order_quantity")
+        table.integer("order_total")
     })
   
 };
