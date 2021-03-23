@@ -1,6 +1,16 @@
 require("dotenv").config()
-
 const server = require('./server.js');
+
+
+///////// Do we still need bodyParser? Check later after API is up and running. /////////
+const bodyParser = require('body-parser')
+server.use(bodyParser.json())
+server.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
+
 
 const PORT = process.env.PORT || 5432
 
@@ -14,14 +24,7 @@ const client = new Client({
     port: process.env.PORT,
 });
 
-client
-    .connect(err => {
-        if (err) {
-          console.error('connection error', err.stack)
-        } else {
-          console.log('connected')
-        }
-      })
+client.connect();
 
 
 
