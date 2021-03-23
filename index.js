@@ -1,6 +1,7 @@
 require("dotenv").config()
-const helmet = require("helmet")
+
 const server = require('./server.js');
+
 const PORT = process.env.PORT || 5432
 
 const { Client } = require('pg');
@@ -13,11 +14,15 @@ const client = new Client({
     port: process.env.PORT,
 });
 
-client.connect();
+client
+    .connect(err => {
+        if (err) {
+          console.error('connection error', err.stack)
+        } else {
+          console.log('connected')
+        }
+      })
 
-
-
-server.use(helmet())
 
 
 server.use((err, req, res, next) => {
