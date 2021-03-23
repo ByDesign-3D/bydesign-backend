@@ -24,7 +24,13 @@ const client = new Client({
     port: process.env.PORT,
 });
 
-client.connect();
+client.connect(err => {
+  if (err) {
+    console.error('connection error', err.stack)
+  } else {
+    console.log('connected')
+  }
+});
 
 
 
