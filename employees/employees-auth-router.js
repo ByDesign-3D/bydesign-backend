@@ -40,7 +40,7 @@ router.post("employee/login", async (req, res, next) => {
         const tokenPayload = {
             employeeId: employee.id
         }
-        const token = jwt.sign(tokenPayload, process.env.SECRET_KEY)
+        const token = jwt.sign(tokenPayload, process.env.JWT_SECRET)
         res.cookie("token", token)
 
         res.json({
