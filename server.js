@@ -1,18 +1,37 @@
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
 
 const server = express();
 
+server.use(helmet());
+server.use(cors());
 server.use(express.json());
 
-// const zoosRouter = require("./routers/zoos")
-// const animalsRouter = require("./routers/animals")
-// const speciesRouter = require("./routers/species")
+// const restricted = require('./auth/authenticate-middleware');
 
 
-// server.use("/zoos", zoosRouter)
-// server.use("/animals", animalsRouter)
-// server.use("/species", speciesRouter)
+// const authRouter = require("./auth/auth-router");
+// server.use('/auth', authRouter)
 
+
+
+const employeesRouter = require('./employees/employees-router');
+server.use('/employees', employeesRouter)
+
+
+server.get("/", (req, res, next) => {
+	res.json({
+		message: "Welcome to our 3D ByDesign API!",
+	})
+})
+
+server.use((err, req, res, next) => {
+	console.log(err)
+	res.status(500).json({
+		message: "Something went wrong.",
+	})
+})
 
 
 module.exports = server;

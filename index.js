@@ -1,22 +1,43 @@
-const helmet = require("helmet")
+require("dotenv").config()
 const server = require('./server.js');
-const PORT = process.env.PORT || 5432
 
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
-const client = new Client({
+const pool = new Pool({
     user: process.env.DATABASE_USER,
     host: process.env.DATABASE_HOST,
     database: process.env.DATABASE_URL,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.PORT,
+    max: process.env.max,
+    connectionTimeoutMillis: process.env.CONNECTION_TIMEOUT_MILLISECONDS,
+    idleTimeoutMillis: process.env.IDLE_TIMEOUT_MILLISECONDS
+
 });
 
-client.connect();
+// client.connect(err => {
+//   if (err) {
+//     console.error('connection error', err.stack)
+//   } else {
+//     console.log('connected')
+//   }
+// });
+
+
+///////// Do we still need bodyParser? Check later after API is up and running. /////////
+const bodyParser = require('body-parser')
+server.use(bodyParser.json())
+server.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
+
+
+const PORT = process.env.PORT || 5432
 
 
 
-server.use(helmet())
 
 
 server.use((err, req, res, next) => {
