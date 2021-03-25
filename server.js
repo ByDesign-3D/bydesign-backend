@@ -17,7 +17,11 @@ const restricted = require('./auth-middleware');
 
 
 const employeesRouter = require('./employees/employees-router');
+const employeesAuthRouter = require('./employees/employees-auth-router')
+
 server.use('/employees', restricted(), employeesRouter)
+server.use('/employee', employeesAuthRouter)
+
 
 
 server.get("/", (req, res, next) => {

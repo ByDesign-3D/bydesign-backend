@@ -4,9 +4,9 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const router = express.Router()
 
-router.post("/employee/register", async (req, res, next) => {
+router.post("/register", async (req, res, next) => {
     try {
-        const { username, password } = req.body
+        const { username, password, first_name, last_name, email } = req.body
         const employeeUserName = await Employees.findBy({ username }).first()
 
         if (employeeUserName) {
@@ -14,17 +14,17 @@ router.post("/employee/register", async (req, res, next) => {
                 message: "Sorry, that username already exists. Please choose a new username."
             });
         }
-        if ( username && password ) {
-            const newEmployee = await Employees.add({ username, password });
+        if ( username && password && first_name && last_name && email ) {
+            const newEmployee = await Employees.add({ username, password, first_name, last_name, email });
             return res.status(201).json(newEmployee)
         } else {
-            return res.status(500).json({ message: "Missing username or password." })
+            return res.status(500).json({ message: "Missing one or more credentials." })
         }
     } catch(err) {
         next(err)
     }
 })
-router.post("employee/login", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
     const authError = {
         message: "Invalid Credentials.",
     }

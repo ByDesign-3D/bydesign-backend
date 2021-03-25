@@ -1,10 +1,11 @@
 const bcrypt = require("bcryptjs")
 const db = require("../data/db.config")
 
-async function add(employee) {
-	employee.password = await bcrypt.hash(employee.password, 14)
 
-	const [id] = await db("employees").insert(employee)
+async function add({ username, password, first_name, last_name, email }) {
+	password = await bcrypt.hash(password, 14)
+
+	const [id] = await db("employees").insert({ username, password, first_name, last_name, email }, "id")
 	return findById(id)
 }
 
