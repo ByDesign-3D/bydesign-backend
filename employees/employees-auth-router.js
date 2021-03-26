@@ -33,6 +33,7 @@ router.post("/login", async (req, res, next) => {
         if (!employee) {
             return res.status(401).json(authError)
         }
+        // const hashedPassword = await bcrypt.hash(req.body.password, 14)
         const passwordValid = await bcrypt.compare(req.body.password, employee.password)
         if (!passwordValid) {
             return res.status(401).json(authError)

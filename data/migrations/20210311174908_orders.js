@@ -11,6 +11,9 @@ exports.up = async function(knex) {
             .notNullable()
             .references("id")
             .inTable("customers")
+            .onDelete("CASCADE")
+            .onUpdate("CASCADE")
+
         table.text("status")
             .notNullable()
             .defaultTo("received")
