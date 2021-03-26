@@ -24,10 +24,11 @@ function findById(id) {
 		.first()
 }
 
-function update(changes, id){
-    return db("employees")
+const update = async (changes, id) => {
+    await db("employees")
     .update(changes)
     .where({ id })
+	return findBy({ id })
 }
 
 function remove(id){

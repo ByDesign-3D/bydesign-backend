@@ -1,5 +1,7 @@
 const express = require("express")
 const Employees = require("./employees-model")
+const bcrypt = require("bcryptjs")
+
 
 const router = express.Router()
 
@@ -41,6 +43,24 @@ router.get("/:id", async (req, res, next) => {
 		next(err)
 	}
 })
+
+
+router.put("/:id", async (req, res, next) => {
+	try {
+	  const pass = await bcrypt.hash(req.body.password, 14)
+	  const employee = await Employees.update({
+		  first_name: req.body.first_name, 
+		  last_name: req.body.last_name, 
+		  email: req.body.email, 
+		  phone_number: req.body.phone_number,
+		  username: req.body.username, 
+		  password: pass 
+		}, req.decodedToken.employeeId)
+	  res.json(employee)
+	} catch (err) {
+	  next(err)
+	}
+  })
 
 
 
