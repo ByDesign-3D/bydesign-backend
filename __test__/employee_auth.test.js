@@ -4,7 +4,6 @@ const db = require('../data/db.config.js');
 const faker = require('faker');
 
 
-
 // Register endpoint tests
 describe('employee register', () =>{
     // beforeEach(async () => {
@@ -29,7 +28,6 @@ describe('employee register', () =>{
         })
     });
 });
-
 
 
 describe('employee login', () =>{
