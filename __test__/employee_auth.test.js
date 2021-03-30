@@ -40,6 +40,7 @@ describe('employee login', () =>{
             .toBe(201)
         })
     });
+
     it('should give status 401 error for employee login', () =>{
         return request(server)
         .post('/employee/login')
@@ -59,4 +60,30 @@ describe('employee login', () =>{
             .toBe(200)
         })
     })
+
+    // it('Should return 200 for successful employee info update (put request)', () => {
+    //     let userToken = ""
+    //     request(server)
+    //     .post('/employee/login')
+    //     .send({username:'random', password:'myPassword'})
+    //     .then(res => {
+    //         userToken = res.token
+    //     })
+    //     .catch()
+
+    //     return request(server)
+    //     .put('employee/f233c188-77f5-4610-af4b-8347da778cef')
+    //     .send({
+    //         first_name:"Virginia", 
+    //         last_name:"Wilcox", 
+    //         email:faker.internet.email(), 
+    //         phone_number:faker.phone.phoneNumber(), 
+    //         username:faker.internet.userName(), 
+    //         password:faker.internet.password()
+    //     }, userToken)
+    //     .then(res => {
+    //         expect(res.status)
+    //         .toBe(200)
+    //     })
+    // })
 })

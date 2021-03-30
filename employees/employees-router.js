@@ -56,7 +56,7 @@ router.put("/:id", async (req, res, next) => {
 		  username: req.body.username, 
 		  password: pass 
 		}, req.decodedToken.employeeId)
-	  res.json(employee)
+		res.status(200).json(employee)
 	} catch (err) {
 	  next(err)
 	}
