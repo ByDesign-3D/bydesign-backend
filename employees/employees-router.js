@@ -1,6 +1,8 @@
 const express = require("express")
 const Employees = require("./employees-model")
 const bcrypt = require("bcryptjs")
+const restricted = require('../auth-middleware');
+
 
 
 const router = express.Router()
@@ -60,7 +62,16 @@ router.put("/:id", async (req, res, next) => {
 	} catch (err) {
 	  next(err)
 	}
-  })
+})
+
+router.delete("/:id", async (req, res, next) => {
+	try{
+		const employee = await Employees.remove(req.params.id)
+		res.status(410).json(employee)
+	} catch (err) {
+		next(err)
+	}
+})
 
 
 

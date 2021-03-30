@@ -65,16 +65,16 @@ describe('employee login', () =>{
 
 })
 
-describe('employee delete', () =>{
-    it('should return 410 for successful deletion of an employee', () =>{
-        return request(server)
-        .delete('/employee/ec362e67-41f9-415a-b452-0ee9df21043a')
-        .then(res =>{
-            expect(res.status)
-            .toBe(410)
-        })
-    })
-})
+// describe('employee delete', () =>{
+//     it('should return 410 for successful deletion of an employee', () =>{
+//         return request(server)
+//         .delete('/employees/ec362e67-41f9-415a-b452-0ee9df21043a')
+//         .then(res =>{
+//             expect(res.status)
+//             .toBe(410)
+//         })
+//     })
+// })
 
 // describe('employee update', () =>{
         // it('Should return 200 for successful employee info update (put request)', () => {
