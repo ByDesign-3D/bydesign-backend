@@ -21,7 +21,11 @@ const router = express.Router()
 
 router.get("/", async (req, res, next) => {
 	try {
-		res.json(await Employees.find())
+		if (req.decodedToken.employeeAuthLevel <= 5 ) {
+			return res.json(await Employees.find())
+		} else {
+			return res.status(400).json({ message: "You are not authorized."})
+		}
 	} catch(err) {
 		next(err)
 	}
@@ -38,9 +42,15 @@ router.get("/:id", async (req, res, next) => {
             return res.status(404).json({
                 errorMessage: "The employee with that id cannot be found."
             })
-        }
+        } else if (req.decodedToken.employeeAuthLevel <= 5 ) {
+			return res.status(200).json(employee)
+		} else if (req.decodedToken.employeeId === req.params.id) {
+			return res.status(200).json(employee)
+		} else {
+			return res.status(400).json({ message: "You are not authorized."})
+		}
         
-		res.status(200).json(employee)
+		
 	} catch(err) {
 		next(err)
 	}
