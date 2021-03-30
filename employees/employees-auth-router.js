@@ -41,7 +41,8 @@ router.post("/login", async (req, res, next) => {
             return res.status(401).json(authError)
         }
         const tokenPayload = {
-            employeeId: employee.id
+            employeeId: employee.id,
+            employeeAuthLevel: employee.auth_level,
         }
         const token = jwt.sign(tokenPayload, process.env.JWT_SECRET)
         res.cookie("token", token)

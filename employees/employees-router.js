@@ -67,7 +67,12 @@ router.put("/:id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
 	try{
 		const employee = await Employees.remove(req.params.id)
-		res.status(410).json(employee)
+
+		if (req.decodedToken.employeeAuthLevel <= 2 ) {
+			return res.status(410).json(employee)
+		} else {
+			return res.status(400).json({ message: "You are not authorized."})
+		}
 	} catch (err) {
 		next(err)
 	}

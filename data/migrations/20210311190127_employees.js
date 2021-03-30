@@ -12,7 +12,7 @@ exports.up = async function(knex) {
             .notNullable()
             .unique()
         table.string("phone_number")
-        table.integer("auth_level")
+        table.integer("auth_level").defaultTo(1000)
         table.binary("image")
         table.text("username")
             .notNullable()
