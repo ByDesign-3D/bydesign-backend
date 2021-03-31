@@ -8,7 +8,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-// const restricted = require('./auth/authenticate-middleware');
+const restricted = require('./auth-middleware');
 
 
 // const authRouter = require("./auth/auth-router");
@@ -17,7 +17,11 @@ server.use(express.json());
 
 
 const employeesRouter = require('./employees/employees-router');
-server.use('/employees', employeesRouter)
+const employeesAuthRouter = require('./employees/employees-auth-router')
+
+server.use('/employees', restricted(), employeesRouter)
+server.use('/employee', employeesAuthRouter)
+
 
 
 server.get("/", (req, res, next) => {

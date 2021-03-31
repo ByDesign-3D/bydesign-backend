@@ -1,10 +1,11 @@
 const bcrypt = require("bcryptjs")
 const db = require("../data/db.config")
 
-async function add(employee) {
-	employee.password = await bcrypt.hash(employee.password, 14)
 
-	const [id] = await db("employees").insert(employee)
+async function add({ username, password, first_name, last_name, email }) {
+	password = await bcrypt.hash(password, 14)
+
+	const [id] = await db("employees").insert({ username, password, first_name, last_name, email }, "id")
 	return findById(id)
 }
 
@@ -23,10 +24,11 @@ function findById(id) {
 		.first()
 }
 
-function update(changes, id){
-    return db("employees")
+const update = async (changes, id) => {
+    await db("employees")
     .update(changes)
     .where({ id })
+	return findBy({ id })
 }
 
 function remove(id){
