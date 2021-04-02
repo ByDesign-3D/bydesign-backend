@@ -1,19 +1,9 @@
 const express = require("express")
 const Employees = require("./employees-model")
 const bcrypt = require("bcryptjs")
-const restricted = require('../auth-middleware');
-
 
 
 const router = express.Router()
-
-// const restricted = require("../auth/authenticate-middleware")
-
-
-
-////////////// This is for the /employees endpoint and will only be available to logged-in employees once we create and call the `restrict` middleware. //////////////
-
-
 
 
 //////////////    /employees    //////////////
