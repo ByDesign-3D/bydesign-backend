@@ -54,7 +54,7 @@ describe('customer login', () =>{
     it('should return 200 for correct customer login', () =>{
         return request(server)
         .post('/customer/login')
-        .send({email:'random@fake.com', password:'myPassword'})
+        .send({email:'testuser@fake.com', password:'myPassword'})
         .then(res =>{
             expect(res.status)
             .toBe(200)

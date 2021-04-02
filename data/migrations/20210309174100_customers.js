@@ -2,8 +2,7 @@ exports.up = async function(knex) {
     await knex.schema.createTable("customers", (table) => {
         table.uuid("id")
             .primary()
-            .notNullable()
-            .unique()
+            .defaultTo(knex.raw('uuid_generate_v4()'))
         table.text("first_name")
             .notNullable()
         table.text("last_name")
