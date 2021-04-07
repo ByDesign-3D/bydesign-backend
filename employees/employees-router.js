@@ -49,16 +49,33 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
 	try {
-	  const pass = await bcrypt.hash(req.body.password, 14)
-	  const employee = await Employees.update({
-		  first_name: req.body.first_name, 
-		  last_name: req.body.last_name, 
-		  email: req.body.email, 
-		  phone_number: req.body.phone_number,
-		  username: req.body.username, 
-		  password: pass 
-		}, req.decodedToken.employeeId)
-		res.status(200).json(employee)
+		const pass = await bcrypt.hash(req.body.password, 14)
+
+		if (req.decodedToken.employeeAuthLevel === 1 ) {
+			const employee = await Employees.update({
+				first_name: req.body.first_name, 
+				last_name: req.body.last_name, 
+				email: req.body.email, 
+				phone_number: req.body.phone_number,
+				username: req.body.username, 
+				password: pass,
+				auth_level: req.body.auth_level
+			  }, req.params.id)
+			return res.status(200).json(employee)
+		} else if (req.decodedToken.employeeAuthLevel <= 5 && req.decodedToken.employeeAuthLevel > 1){
+			const employee = await Employees.update({
+				first_name: req.body.first_name, 
+				last_name: req.body.last_name, 
+				email: req.body.email, 
+				phone_number: req.body.phone_number,
+				username: req.body.username, 
+				password: pass
+			  }, req.params.id)
+			return res.status(200).json(employee)
+		} else {
+			return res.status(401).json({ message: "You are not authorized."})
+		}
+		
 	} catch (err) {
 	  next(err)
 	}
