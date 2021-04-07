@@ -50,6 +50,7 @@ router.post("/login", async (req, res, next) => {
         res.json({
             message: `Welcome ${employee.username}!`,
             token: token,
+            auth_level: employee.auth_level
         })
 
     } catch(err) {
