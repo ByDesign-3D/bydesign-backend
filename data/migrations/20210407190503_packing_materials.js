@@ -4,6 +4,7 @@ exports.up = async function(knex) {
             .primary()
         table.text("type")
             .notNullable()
+        table.text("brand")
         table.decimal("amount_in_stock")
             .defaultTo(0)
         table.text("units_of_measure")
